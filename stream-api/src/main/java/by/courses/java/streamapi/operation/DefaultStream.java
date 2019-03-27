@@ -32,20 +32,16 @@ public class DefaultStream implements Operation<UserBase> {
 
     @Override
     public UserBase getThirdInCollection(Collection<UserBase> entities) {
-        return null;
-        /*entities.stream()
+        return entities.stream()
                 .skip(2)
-                .limit(3)
-                .findFirst()*/
+                .findFirst()
+                .get();
     }
 
     @Override
     public Collection<UserBase> getTwoUsersStartingFromSecond(Collection<UserBase> entities) {
         return null;
-        /*entities.stream()
-                .skip(1)
-                .limit(3)
-                .findAny()*/
+
     }
 
     @Override
