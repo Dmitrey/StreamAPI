@@ -40,22 +40,29 @@ public class DefaultStream implements Operation<UserBase> {
 
     @Override
     public Collection<UserBase> getTwoUsersStartingFromSecond(Collection<UserBase> entities) {
-        return null;
-
+        return entities.stream()
+                .skip(1)
+                .limit(2)
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean isCharacterPresentInAllNames(Collection<UserBase> entities, String character) {
-        return false;
+        return entities.stream()
+                .allMatch(x->x.getName().toLowerCase().contains(character.toLowerCase()))==true;
     }
 
     @Override
     public Collection<UserBase> addValueToAllNames(Collection<UserBase> entities, String value) {
-        return null;
+        return entities.stream()
+                .map(obj->UserBase.of(obj.getName()+value, obj.getAge()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<UserBase> sortByNameThanByAge(Collection<UserBase> entities) {
-        return null;
+        return entities.stream()
+                .sorted(Comparator.comparing(UserBase::getName).thenComparing(UserBase::getAge))
+                .collect(Collectors.toList());
     }
 }
