@@ -10,27 +10,42 @@ public class DefaultStream implements Operation<UserBase> {
 
     @Override
     public Collection<UserBase> removeWithMaxAge(Collection<UserBase> entities) {
-        return null;
+        return entities.stream()
+                .filter(x -> x.getAge() < entities.stream().mapToInt(UserBase::getAge).max().getAsInt())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<UserBase> removeAllOlder(Collection<UserBase> entities, int age) {
-        return null;
+        return entities.stream()
+                .filter(x -> x.getAge()<=age)
+                .collect(Collectors.toList());
     }
 
     @Override
     public double getAverageAge(Collection<UserBase> entities) {
-        return 0;
+        return entities.stream()
+                .mapToInt(UserBase::getAge)
+                .average()
+                .getAsDouble();
     }
 
     @Override
     public UserBase getThirdInCollection(Collection<UserBase> entities) {
         return null;
+        /*entities.stream()
+                .skip(2)
+                .limit(3)
+                .findFirst()*/
     }
 
     @Override
     public Collection<UserBase> getTwoUsersStartingFromSecond(Collection<UserBase> entities) {
         return null;
+        /*entities.stream()
+                .skip(1)
+                .limit(3)
+                .findAny()*/
     }
 
     @Override
